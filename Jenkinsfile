@@ -24,10 +24,11 @@ pipeline {
             }
 
             post {
-               success {
-                  junit '**/target/surefire-reports/TEST-*.xml'
-                  archiveArtifacts 'target/*.jar'
-               }
+                success {
+                    // TODO: add test report
+                    // junit '**/target/surefire-reports/TEST-*.xml'
+                    archiveArtifacts 'target/*.jar'
+                }
             }
         }
     }
