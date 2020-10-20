@@ -11,12 +11,12 @@ void setBuildStatus(String message, String state) {
 pipeline {
     agent {
         docker {
-            image 'maven:3-alpine' 
+            image 'maven:3'
             args '-v /root/.m2:/root/.m2' 
         }
     }
     stages {
-        stage('Build') { 
+        stage('Build') {
             steps {
                 setBuildStatus("Build Started", "PENDING");
 
