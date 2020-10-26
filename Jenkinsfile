@@ -11,10 +11,16 @@ void setBuildStatus(String message, String state) {
 pipeline {
     agent any
 
+    environment {
+        DOCKER_NS = "${DOCKER_REGISTRY}/twbc"
+    }
+
     stages {
         stage('Unit Tests') {
             steps {
                 setBuildStatus("Build Started", "PENDING");
+
+                sh 'aws ecr get-login-password | docker login --username AWS --password-stdin ${DOCKER_REGISTRY}'
 
                 sh '''
                 make fabric-restart &
