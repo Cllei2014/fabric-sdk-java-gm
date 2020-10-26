@@ -9,12 +9,8 @@ void setBuildStatus(String message, String state) {
 }
 
 pipeline {
-    agent {
-        docker {
-            image 'maven:3'
-            args '-v /root/.m2:/root/.m2' 
-        }
-    }
+    agent any
+
     stages {
         stage('Unit Tests') {
             steps {
@@ -74,3 +70,4 @@ pipeline {
         }
     }
 }
+
