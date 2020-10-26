@@ -33,7 +33,8 @@
         <bouncycastle.version>1.62</bouncycastle.version>
         <httpclient.version>4.5.10</httpclient.version>
         <javadoc.version>3.1.1</javadoc.version>
-        <skipITs>true</skipITs>
+        <skipTests>true</skipTests>
+        <skipITs>false</skipITs>
         <alpn-boot-version>8.1.7.v20160121</alpn-boot-version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jacoco.version>0.7.9</jacoco.version>
@@ -263,7 +264,7 @@
                         <include>**/*Test.java</include>
                     </includes>
                     <!--<useSystemClassLoader>true</useSystemClassLoader>-->
-                    <skipTests>true</skipTests>
+                    <skipTests>${skipTests}</skipTests>
                 </configuration>
             </plugin>
             <plugin>
