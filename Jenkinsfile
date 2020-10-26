@@ -16,17 +16,49 @@ pipeline {
         }
     }
     stages {
-        stage('Build') {
+        stage('Unit Tests') {
             steps {
                 setBuildStatus("Build Started", "PENDING");
 
-                sh "mvn -Dmaven.test.failure.ignore=true clean package"
+                sh '''
+                make fabric-restart &
+                sleep 5
+                make unit-test
+                kill %1
+                '''
+            }
+
+            post {
+                always {
+                    sh 'make fabric-down'
+                }
+            }
+        }
+
+        stage('Int Tests') {
+            steps {
+                sh '''
+                make fabric-restart &
+                sleep 5
+                make int-test
+                kill %1
+                '''
+            }
+
+            post {
+                always {
+                    sh 'make fabric-down'
+                }
+            }
+        }
+
+        stage('Package') {
+            steps {
+                sh 'make package'
             }
 
             post {
                 success {
-                    // TODO: add test report
-                    // junit '**/target/surefire-reports/TEST-*.xml'
                     archiveArtifacts 'target/*.jar'
                 }
             }
